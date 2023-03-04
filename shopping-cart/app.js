@@ -12,9 +12,13 @@ var app = express();
 app.listen(3000);
 
 // view engine setup
-app.engine('.hbs',expresshbs({defaultLayout:'layout', extname:'.hds'}));
+app.engine('.hbs',expresshbs());
 // app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', '.hbs');
+
+app.get('/home',function(req,res){
+    res.render('index');
+});
 
 app.use(logger('dev'));
 app.use(express.json());
