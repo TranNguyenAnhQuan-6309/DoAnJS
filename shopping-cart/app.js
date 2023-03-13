@@ -10,7 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
-mongoose.connect('mongodb://127.0.0.1:27017/test');
+mongoose.connect('mongodb://localhost:27017/test');
 
 
 // view engine setup
