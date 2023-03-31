@@ -1,6 +1,8 @@
 <!--  design section start -->
 <div class="design_section layout_padding">
     <div id="my_slider" class="carousel slide" data-ride="carousel">
+        <app-search></app-search>
+        <app-category></app-category>
         <ul>
             <li *ngFor="let product of products">
                 <a routerLink="/product/{{product.product_id}}">
@@ -8,6 +10,11 @@
                     <div class="content">
                         <div class="name">
                             {{product.product_name}}
+                        </div>
+                        <div class="category">
+                            <a *ngFor="let category_name of product.category_na" routerLink="/category/{{category_name}}">
+                                {{category_name}}
+                            </a>
                         </div>
                         <div class="price">
                             <span>
@@ -18,12 +25,6 @@
                 </a>
             </li>
         </ul>
-        <a class="carousel-control-prev" href="#my_slider" role="button" data-slide="prev">
-            <i class="fa fa-long-arrow-left" style="font-size:24px"></i>
-        </a>
-        <a class="carousel-control-next" href="#my_slider" role="button" data-slide="next">
-            <i class="fa fa-long-arrow-right" style="font-size:24px"></i>
-        </a>
     </div>
     <div class="container">
         <div class="read_bt"><a href="#">Read More</a></div>

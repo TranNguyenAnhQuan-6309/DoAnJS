@@ -5,5 +5,5 @@ export class product{
     price!:number;
     product_name!:string;
     quantity!:number;
-    category_id!:number;
+    category_na!:string;
 }

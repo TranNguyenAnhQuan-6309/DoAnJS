@@ -9,6 +9,9 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { CartComponent } from './components/cart/cart.component';
 import { AboutComponent } from './components/about/about.component';
+import { SearchComponent } from './components/search/search.component';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { CategoryComponent } from './components/category/category.component';
 
 
 @NgModule({
@@ -20,6 +23,9 @@ import { AboutComponent } from './components/about/about.component';
     ContactComponent,
     CartComponent,
     AboutComponent,
+    SearchComponent,
+    ProductDetailComponent,
+    CategoryComponent,
     
     
   ],
