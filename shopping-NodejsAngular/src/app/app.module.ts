@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,6 +10,9 @@ import { ContactComponent } from './components/contact/contact.component';
 import { CartComponent } from './components/cart/cart.component';
 import { AboutComponent } from './components/about/about.component';
 import { RegisterComponent } from './register/register.component';
+import { DashboardComponent } from './components-Admin/dashboard/dashboard.component';
+import { SidenavComponent } from './components-Admin/sidenav/sidenav.component';
+import { HeaderComponent } from './components-Admin/header/header.component';
 
 
 @NgModule({
@@ -22,6 +25,9 @@ import { RegisterComponent } from './register/register.component';
     CartComponent,
     AboutComponent,
     RegisterComponent,
+    DashboardComponent,
+    SidenavComponent,
+    HeaderComponent,
     
     
   ],
@@ -29,7 +35,9 @@ import { RegisterComponent } from './register/register.component';
     BrowserModule,
     AppRoutingModule
   ],
+  
   providers: [],
-  bootstrap: [MainComponent]
+  bootstrap: [MainComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
