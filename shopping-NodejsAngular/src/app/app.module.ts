@@ -9,6 +9,7 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { CartComponent } from './components/cart/cart.component';
 import { AboutComponent } from './components/about/about.component';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { AboutComponent } from './components/about/about.component';
     ContactComponent,
     CartComponent,
     AboutComponent,
+    RegisterComponent,
     
     
   ],
