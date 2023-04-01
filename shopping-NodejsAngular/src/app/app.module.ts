@@ -12,6 +12,7 @@ import { AboutComponent } from './components/about/about.component';
 import { SearchComponent } from './components/search/search.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { CategoryComponent } from './components/category/category.component';
+import { TitleComponent } from './components/title/title.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { CategoryComponent } from './components/category/category.component';
     SearchComponent,
     ProductDetailComponent,
     CategoryComponent,
+    TitleComponent,
     
     
   ],
