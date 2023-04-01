@@ -2,6 +2,9 @@
   "extends": [
     "development"
   ],
+  "formatters": [
+    "summary"
+  ],
   "hints": {
     "axe/name-role-value": [
       "default",
@@ -14,6 +17,11 @@
       {
         "select-name": "off"
       }
-    ]
+    ],
+    "compat-api/css": "off",
+    "detect-css-reflows/composite": "off",
+    "detect-css-reflows/layout": "off",
+    "detect-css-reflows/paint": "off",
+    "button-type": "off"
   }
 }

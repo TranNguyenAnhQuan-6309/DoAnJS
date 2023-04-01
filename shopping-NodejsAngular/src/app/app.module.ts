@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,10 @@ import { SearchComponent } from './components/search/search.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { CategoryComponent } from './components/category/category.component';
 import { TitleComponent } from './components/title/title.component';
+import { RegisterComponent } from './register/register.component';
+import { DashboardComponent } from './components-Admin/dashboard/dashboard.component';
+import { SidenavComponent } from './components-Admin/sidenav/sidenav.component';
+import { HeaderComponent } from './components-Admin/header/header.component';
 
 
 @NgModule({
@@ -28,6 +32,10 @@ import { TitleComponent } from './components/title/title.component';
     ProductDetailComponent,
     CategoryComponent,
     TitleComponent,
+    RegisterComponent,
+    DashboardComponent,
+    SidenavComponent,
+    HeaderComponent,
     
     
   ],
@@ -35,7 +43,9 @@ import { TitleComponent } from './components/title/title.component';
     BrowserModule,
     AppRoutingModule
   ],
+  
   providers: [],
-  bootstrap: [MainComponent]
+  bootstrap: [MainComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
