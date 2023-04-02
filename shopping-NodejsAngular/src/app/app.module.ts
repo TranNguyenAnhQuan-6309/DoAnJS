@@ -17,7 +17,7 @@ import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './components-Admin/dashboard/dashboard.component';
 import { SidenavComponent } from './components-Admin/sidenav/sidenav.component';
 import { HeaderComponent } from './components-Admin/header/header.component';
-import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+
 
 
 @NgModule({
