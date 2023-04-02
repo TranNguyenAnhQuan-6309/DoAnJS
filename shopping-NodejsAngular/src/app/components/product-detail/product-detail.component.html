@@ -10,5 +10,28 @@
                 <a href="/add-cart?ItemId=@item.ItemId&quantity=1" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
             </div>
         </div>
+
+        <div class="container">
+            <img [src]="product.image" [alt]="product.product_name" />
+
+            <div class="details">
+                <div class="header">
+                    <span class="name">
+                {{product.product_name}}
+            </span>
+                </div>
+                <div class="category">
+                    <a *ngFor="let category of product.category_na" routerLink="/category/{{category}}">
+                {{category}}
+            </a>
+                </div>
+                <div class="price">
+                    <span>
+                {{product.price | currency}}
+            </span>
+                </div>
+                <button (click)="addToCart()">Add To Cart</button>
+            </div>
+        </div>
     </div>
 </div>
