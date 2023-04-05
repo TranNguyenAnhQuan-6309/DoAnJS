@@ -17,8 +17,10 @@ import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './components-Admin/dashboard/dashboard.component';
 import { SidenavComponent } from './components-Admin/sidenav/sidenav.component';
 import { HeaderComponent } from './components-Admin/header/header.component';
-
-
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './components/login/login.component';
+import { ToastrModule } from 'ngx-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -38,13 +40,21 @@ import { HeaderComponent } from './components-Admin/header/header.component';
     SidenavComponent,
     HeaderComponent,
     ProductDetailComponent,
-    
+    LoginComponent
     
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ToastrModule.forRoot({
+      timeOut:3000,
+      positionClass:'toast-bottom-right',
+      newestOnTop:false
+    })
   ],
   
   providers: [],

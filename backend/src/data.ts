@@ -67,3 +67,9 @@ export const sample_category:any[] = [
  {"category_name":"Kitchen", "count":9},
  {"category_name":"Laundry room", "count":11}
 ]
+
+export const sample_users: any[] = [
+    {username:"Luvana", email:"quant882@gmail.com", password:"12345", address:"Japan Tokyo", RoleAdmin: true},
+    {username:"Tien Tamk", email:"tien123@gmail.com", password:"12345", address:"Japan Tokyo", RoleAdmin: false},
+    {username:"Khoa Koat", email:"khoa123@gmail.com", password:"12345", address:"Japan Tokyo", RoleAdmin: false}
+]

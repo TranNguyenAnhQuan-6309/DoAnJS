@@ -1,0 +1,19 @@
+.menu-container {
+    position: relative;
+}
+
+.menu {
+    position: absolute;
+    z-index: 1;
+    background: whitesmoke;
+    display: none;
+}
+
+.menu-container:hover .menu {
+    display: block;
+}
+
+.menu a {
+    width: 100%;
+    min-width: 8rem;
+}
