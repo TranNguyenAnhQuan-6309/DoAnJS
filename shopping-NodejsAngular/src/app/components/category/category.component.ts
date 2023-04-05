@@ -10,7 +10,9 @@ import { category } from 'src/app/shared/models/category';
 export class CategoryComponent implements OnInit {
   category_na?:category[];
   constructor(productService:ProductService){
-    this.category_na = productService.getAllCategory();
+    productService.getAllCategory().subscribe(serverCategory => {
+      this.category_na = serverCategory;
+    });
   }
 
   ngOnInit(): void {

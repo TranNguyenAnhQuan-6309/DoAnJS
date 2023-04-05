@@ -16,7 +16,9 @@ export class ProductDetailComponent implements OnInit{
     private cartService:CartService, private router: Router){
     activatedRoute.params.subscribe((params) => {
       if(params.product_id)
-      this.product = productService.getProductById(params.product_id);
+      productService.getProductById(params.product_id).subscribe(serverProduct => {
+        this.product = serverProduct;
+      });
     })
   }
 

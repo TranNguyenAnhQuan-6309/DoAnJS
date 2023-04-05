@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import { ProductService } from 'src/app/services/product.services';
 import { product } from 'src/app/shared/models/product';
 
@@ -11,13 +12,18 @@ import { product } from 'src/app/shared/models/product';
 export class ProductComponent implements OnInit{
   products:product[] = [];
   constructor(private productservice:ProductService, activatedRoute:ActivatedRoute){
+    let productObservalbe:Observable<product[]>;
     activatedRoute.params.subscribe((params) => {
       if(params.searchTerm)
-      this.products = this.productservice.getAllProductBySearchTerm(params.searchTerm);
+        productObservalbe = this.productservice.getAllProductBySearchTerm(params.searchTerm);
       else if(params.category_name)
-      this.products = this.productservice.getAllProductByCategory(params.category_name);
+        productObservalbe = this.productservice.getAllProductByCategory(params.category_name);
       else
-      this.products = productservice.getAll();
+        productObservalbe = productservice.getAll();
+
+        productObservalbe.subscribe((serverProduct) => {
+          this.products = serverProduct;
+        })
     }) 
   }
 

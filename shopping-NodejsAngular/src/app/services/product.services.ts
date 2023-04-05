@@ -2,32 +2,35 @@ import {Injectable} from '@angular/core';
 import { sample_product, sample_category } from 'src/data';
 import {product} from '../shared/models/product';
 import { category } from '../shared/models/category';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { PRODUCT_BY_CATEGORY_URL, PRODUCT_BY_ID_URL, PRODUCT_BY_SEARCH_URL, PRODUCT_CATEGORY_URL, PRODUCT_URL } from 'src/constants/urs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ProductService{
-    constructor() { }
+    constructor(private http:HttpClient) { }
 
-    getAll():product[]{
-        return sample_product
+    getAll():Observable<product[]>{
+        return this.http.get<product[]>(PRODUCT_URL);
     }
 
     getAllProductBySearchTerm(searchTerm:string){
-        return this.getAll().filter(product => product.product_name.toLocaleLowerCase().includes(searchTerm.toLowerCase()))
+        return this.http.get<product[]>(PRODUCT_BY_SEARCH_URL);
     }
 
-    getProductById(productId:string):product{
-        return this.getAll().find(product => product.product_id == productId) ?? new product();
+    getProductById(productId:string):Observable<product>{
+        return this.http.get<product>(PRODUCT_BY_ID_URL + productId);
     }
 
-    getAllCategory():category[]{
-        return sample_category;
+    getAllCategory():Observable<category[]>{
+        return this.http.get<category[]>(PRODUCT_CATEGORY_URL);
     }
 
-    getAllProductByCategory(category:string):product[]{
+    getAllProductByCategory(category:string):Observable<product[]>{
         return category === "All"?
         this.getAll():
-        this.getAll().filter(product => product.category_na?.includes(category));
+        this.http.get<product[]>(PRODUCT_BY_CATEGORY_URL + category);
     }
 }
