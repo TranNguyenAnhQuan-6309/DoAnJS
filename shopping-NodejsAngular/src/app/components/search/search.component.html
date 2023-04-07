@@ -1,4 +1,10 @@
-<div>
-    <input #s type="text" placeholder="Search product" (keyup.enter)="search(s.value)" [value]="searchTerm" />
-    <button (click)="search(s.value)">Search</button>
+<div class="productCard">
+    <img [src]='image'>
+    <h3>{{productName}}</h3>
+    <p>{{productPrice | currency}}</p>
+    <mat-form-field>
+        <input matInput type="number" value="1" #amountInput='ngModel' [(ngModel)]='product.amount' required>
+    </mat-form-field>
+    <br>
+    <button *ngIf='user && !cartOption' mat-raised-button color="primary" (click)='addToCart()'>Add to cart</button>
 </div>

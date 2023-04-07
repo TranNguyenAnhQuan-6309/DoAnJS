@@ -1,0 +1,12 @@
+iv {
+    text-align: center;
+}
+
+::ng-deep .mat-ripple:not(:empty) {
+    margin: 0 auto 0 auto;
+}
+
+.products {
+    width: 70%;
+    float: right;
+}

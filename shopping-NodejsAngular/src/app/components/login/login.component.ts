@@ -1,38 +1,52 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from 'src/app/services/admin.service';
+import { UserModel } from 'src/app/shared/models/user';
+import { store } from 'src/app/shared/redux/store';
+import { RegisterService } from 'src/app/services/register.service';
+import { ActionType } from 'src/app/shared/redux/action-type';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit{
-  loginForm!:FormGroup;
-  isSubmitted = false;
-  returnUrl: any;
-  constructor(private formBuilder:FormBuilder, private userService:UserService
-    ,private activatedRoute:ActivatedRoute,
-    private router:Router){}
+  public user: UserModel;
+  public loginForm = { email: '', password: '' };
+
+  constructor(private myRegisterService: RegisterService,private myRouter: Router) { }
 
   ngOnInit(): void {
-    this.loginForm = this.formBuilder.group({
-      email:['',[Validators.required,Validators.email]],
-      password:['',Validators.required]
+    store.subscribe(() => {
+      this.user = store.getState().user;
     });
 
-    this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl;
+    if (!this.user) {
+      this.myRegisterService.autoLogin()
+        .subscribe(res => {
+
+          if (res.name === 'JsonWebTokenError') {
+            return;
+          }
+
+          const action = { type: ActionType.userLogin, payload: res.user };
+          store.dispatch(action);
+        }, err => alert(err.message));
+    }
   }
 
-  get fc(){
-    return this.loginForm.controls;
-  }
-
-  submit(){
-    this.isSubmitted = true;
-    if(this.loginForm.invalid) return;
-
-    this.userService.login({email: this.fc.email.value ,password: this.fc.password.value}).subscribe(()=>{this.router.navigateByUrl(this.returnUrl);
-    });
+  public login(): void {
+    this.myRegisterService.login(this.loginForm)
+      .subscribe(res => {
+        if (!res.user) {
+          alert('Wrong email / password .');
+          return;
+        }
+        const action = { type: ActionType.userLogin, payload: res.user };
+        store.dispatch(action);
+        localStorage.setItem('token', res.jwtToken);
+        if(res.user.isAdmin === true){
+          this.myRouter.navigateByUrl("/admin");
+        }
+      }, err => alert(err.message));
   }
 }

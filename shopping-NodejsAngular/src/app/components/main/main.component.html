@@ -34,16 +34,11 @@
                         <li class="nav-item" *ngIf="!isAuth">
                             <a class="nav-link" routerLink="/login">LOGIN</a>
                         </li>
-                        <li class="nav-item" *ngIf="isAuth">
-                            <div class="menu-container">
-                                <a class="nav-link" routerLink="/dashboard">{{user.username}}</a>
-                                <div class="menu">
-                                    <a class="nav-link" routerLink="/profile">Profile</a>
-                                    <a class="nav-link" routerLink="/orders">Order</a>
-                                    <a (click)="logout()">Logout</a>
-                                </div>
-                            </div>
+                        <li class="nav-item active">
+                            <p class="nav-link" *ngIf='!user'>Hello guest ! </p>
+                            <p class="nav-link" *ngIf='user'>Hello {{user.firstName}}</p>
                         </li>
+                        <button type="button" class="btn btn-danger" (click)='logout()' *ngIf='user'>Logout</button>
                     </ul>
                 </div>
             </nav>

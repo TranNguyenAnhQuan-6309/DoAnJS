@@ -13,7 +13,7 @@ import { SearchComponent } from './components/search/search.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { CategoryComponent } from './components/category/category.component';
 import { TitleComponent } from './components/title/title.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './components/register/register.component';
 import { DashboardComponent } from './components-Admin/dashboard/dashboard.component';
 import { SidenavComponent } from './components-Admin/sidenav/sidenav.component';
 import { HeaderComponent } from './components-Admin/header/header.component';

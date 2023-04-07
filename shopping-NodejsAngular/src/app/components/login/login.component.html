@@ -1,11 +1,6 @@
 <div class="container py-2">
     <div class="row">
         <div class="col-md-12">
-            <div class="logo">
-                <a href="#">
-                    <h1>Cloud Form</h1>
-                </a>
-            </div>
             <div class="row">
                 <div class="col-md-6 login-form mx-auto">
                     <!-- form card login -->
@@ -14,62 +9,25 @@
                             <h3 class="mb-0">Login</h3>
                         </div>
                         <div class="card-body">
-                            <form [formGroup]="loginForm" (ngSubmit)="submit()">
-                                <div class="form-group">
-                                    <input for="email" type="email" class="form-control" placeholder="Email" formControlName="email" />
-                                    <i class="fa fa-user"></i>
-                                </div>
-                                <div class="error-list" *ngIf="fc.email.errors && isSubmitted">
-                                    <div *ngIf="fc.email.errors.required">Should not be empty</div>
-                                    <div *ngIf="fc.email.errors.email">Email is not correct</div>
-                                </div>
-                                <div class="form-group">
-                                    <input for="password" type="password" class="form-control" placeholder="Password" formControlName="password">
-                                    <i class="fa fa-lock"></i>
-                                </div>
-                                <div class="error-list" *ngIf="fc.password.errors && isSubmitted">
-                                    <div *ngIf="fc.password.errors.required">Should not be empty</div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-md-12">
-                                        <div class="checkbox checkbox-primary">
-                                            <input id="checkbox1" class="styled" type="checkbox">
-                                            <label for="checkbox1">
-												Remember me 
-											</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 text-left">
-                                        <a href="#">forgot password?</a>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-lg-12 text-right"><button type="submit" class="btn btn-success hover-btn btn-wd " id="btnLogin"><span>Login</span></button></div>
-                                </div>
+                            <form #myLoginForm='ngForm' class="form-inline" *ngIf='!user'>
+                                <label>
+                                    <input class="form-control" type="email" name='email' placeholder="Email" required minlength='4' #emailInput='ngModel'
+                                        [(ngModel)]='loginForm.email' email='true'>
+                                    <mat-error *ngIf="emailInput.errors?.required && emailInput.touched">Missing Email</mat-error>
+                                    <mat-error *ngIf="emailInput.errors?.email && emailInput.touched">Enter valid email !</mat-error>
+                                </label>
+                                <label>
+                                    <input class="form-control" type="password" name='password' placeholder="Password" required minlength='4'
+                                        #passwordInput='ngModel' [(ngModel)]='loginForm.password'>
+                                    <mat-error *ngIf="passwordInput.errors?.required && passwordInput.touched">Missing password</mat-error>
+                                    <mat-error *ngIf="passwordInput.errors?.minlength && passwordInput.touched">Password too short
+                                    </mat-error>
+                                </label>
+                                <button type="button" class="btn btn-light" [disabled]="myLoginForm.form.invalid" (click)='login()'>Login</button>
+                                <a routerLink="/register">
+                                    <button type="button" class="btn btn-dark">Register</button>
+                                </a>
                             </form>
-                            <div class="naw-text mb-3">
-                                <h5>New to Cloud?</h5>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-lg-6">
-                                    <a href="#" class="btn btn-primary btn-wd fb btn-block">
-                                        <span><i class="fa fa-facebook"></i> &nbsp;&nbsp;&nbsp;Login Facebook</span>
-                                    </a>
-                                </div>
-                                <div class="col-lg-6">
-                                    <a href="#" class="btn btn-info btn-wd gp btn-block">
-                                        <span><i class="fa fa-google-plus"></i> &nbsp;&nbsp;&nbsp;Login Google</span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="create-box text-block text-center my-0">
-                                        <span class="text-small font-weight-semibold">Not a member ?</span>
-                                        <a routerLink="/register" [queryParams]="{returnUrl : returnUrl}" class="text-black text-small">Create new account</a>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <!--/card-block-->
 

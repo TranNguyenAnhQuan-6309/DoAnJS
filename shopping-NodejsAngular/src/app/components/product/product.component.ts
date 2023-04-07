@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { ProductService } from 'src/app/services/product.services';
-import { product } from 'src/app/shared/models/product';
+import { ProductsService } from 'src/app/services/product.services';
+import { ProductModel } from 'src/app/shared/models/product';
 
 @Component({
   selector: 'app-product',
@@ -10,23 +8,50 @@ import { product } from 'src/app/shared/models/product';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit{
-  products:product[] = [];
-  constructor(private productservice:ProductService, activatedRoute:ActivatedRoute){
-    let productObservalbe:Observable<product[]>;
-    activatedRoute.params.subscribe((params) => {
-      if(params.searchTerm)
-        productObservalbe = this.productservice.getAllProductBySearchTerm(params.searchTerm);
-      else if(params.category_name)
-        productObservalbe = this.productservice.getAllProductByCategory(params.category_name);
-      else
-        productObservalbe = productservice.getAll();
+  public Bed: ProductModel[] = [];
+  public Bath: ProductModel[] = [];
+  public Game: ProductModel[] = [];
+  public Kit: ProductModel[] = [];
+  public Lau: ProductModel[] = [];
+  public Liv: ProductModel[] = [];
+  public searchStatus = false;
+  public searchStr: string;
+  public searchProducts: ProductModel[] = [];
 
-        productObservalbe.subscribe((serverProduct) => {
-          this.products = serverProduct;
-        })
-    }) 
+  constructor(private myProductsService: ProductsService) { }
+
+  ngOnInit(): void {
+    const Bed = "BR1";
+    const Bath = "BR2";
+    const Game = "GR1";
+    const Kit = "KC1";
+    const Lau = "LA1";
+    const Liv = "LR1";
+
+    this.myProductsService.getAllProducts()
+      .subscribe(res => {
+        res.map(product => {
+          if (product.categoryId === Bed) { this.Bed.push(product); }
+          if (product.categoryId === Bath) { this.Bath.push(product); }
+          if (product.categoryId === Game) { this.Game.push(product); }
+          if (product.categoryId === Kit) { this.Kit.push(product); }
+          if (product.categoryId === Lau) { this.Lau.push(product); }
+          if (product.categoryId === Liv) { this.Liv.push(product); }
+        });
+      }, err => alert(err.message));
   }
 
-  ngOnInit(): void{
+  public searchProduct(): void {
+    this.myProductsService.searchProduct(this.searchStr)
+      .subscribe(res => {
+        this.searchProducts = res;
+        this.searchStatus = true;
+      }, err => alert(err.message));
+  }
+
+  public backToAllProducts(): void {
+    this.searchStr = '';
+    this.searchStatus = false;
+    this.searchProducts = [];
   }
 }

@@ -11,7 +11,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ProductComponent } from './components/product/product.component';
 import { ServicesComponent } from './components/services/services.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
   {path:'',component: HomeComponent},
