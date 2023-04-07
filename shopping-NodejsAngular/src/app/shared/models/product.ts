@@ -1,9 +1,11 @@
-export class product{
-    product_id!:string;
-    description!:string;
-    image!:string;
-    price!:number;
-    product_name!:string;
-    quantity!:number;
-    category_na!:string;
+export class ProductModel {
+    public constructor(
+        public _id?:string,
+        public productname?:string,
+        public categoryId?:string,
+        public description?:string,
+        public price?:number,
+        public quantity?:number,
+        public image?:string | File
+    ){}
 }

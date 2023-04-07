@@ -36,7 +36,7 @@ const UserSchema = mongoose.Schema({
         minlength: 3,
         maxlength: 30
     },
-    street: {
+    address: {
         type: String,
         required: true,
         minlength: 3,

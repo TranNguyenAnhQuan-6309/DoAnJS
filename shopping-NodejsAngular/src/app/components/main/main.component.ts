@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { user } from 'src/app/shared/models/user';
 import { CartService } from 'src/app/services/cart.services';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/admin.service';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',

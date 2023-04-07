@@ -1,7 +1,7 @@
-import { itemcart } from "./itemcart";
-
-export class cart{
-    items: itemcart[] = [];
-    totalPrice:number = 0;
-    totalCount:number = 0;
+export class Cart {
+    public constructor(
+        public _id?: string,
+        public userId?: string,
+        public date?: Date
+    ) { }
 }
