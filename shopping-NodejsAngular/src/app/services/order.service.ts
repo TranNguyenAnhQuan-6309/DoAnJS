@@ -1,32 +1,55 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { OrderModel } from '../shared/models/order';
-import { Observable } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Router } from "@angular/router";
+import { BehaviorSubject } from "rxjs";
+import { User } from "../models/User";
 
-@Injectable({
-  providedIn: 'root'
-})
+
+@Injectable({ providedIn: "root" })
 export class OrderService {
+  private url: string = "http://localhost:5000/shop";
 
-  public myApi = 'http://localhost:5000/api/order/';
-  constructor(private http: HttpClient) { }
-  
-  public addOrder(order: OrderModel): Observable<any> {
-    return this.http.post<OrderModel>(this.myApi, order);
+  private userOrder = new BehaviorSubject(null);
+  currentUserOrder = this.userOrder.asObservable();
+
+  private orderStatus = new BehaviorSubject(false);
+  currentOrderStatus = this.orderStatus.asObservable();
+
+  constructor(private http: HttpClient, private router: Router) {}
+
+  changeOrderStatus(status: boolean) {
+    this.orderStatus.next(status);
   }
-  public getAllOrder(): Observable<OrderModel[]> {
-    return this.http.get<OrderModel[]>(this.myApi + 'get-all-orders');
+
+  ordersDetails(orders: any) {
+    this.userOrder.next(orders);
   }
-  
-  public receiptDownload(name: string){
-    const httpOptions = {
-      headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-      }),
-      observe: 'response' as 'body',
-      responseType: 'blob' as 'blob'
-  };
-  
-      return this.http.get('http://localhost:4200/assets/receipt/b36d223f-423a-4d05-b04f-c972e230d64a.txt',httpOptions);
-    }
+
+  getAllOrders() {
+    return this.http.get<any>(this.url + "/orders");
+  }
+
+  addProductToCart(user: User, product: any) {
+    return this.http.put<any>(this.url + `/cart/${user._id}/${product.id}`, { quantity: product.quantity });
+  }
+
+  removeProductFromCart(user: User, product: any) {
+    return this.http.put<any>(this.url + `/cart/delete/${user._id}/${product.productId}`, user._id);
+  }
+
+  emptyCart(user: User) {
+    return this.http.put<any>(this.url + `/empty-cart/${user._id}`, user._id);
+  }
+
+  revokeOrder(user: User) {
+    return this.http.put<any>(this.url + `/open-cart/${user._id}`, user._id);
+  }
+
+  initializeOrder(user: User) {
+    return this.http.put<any>(this.url + `/orders/${user._id}`, user._id);
+  }
+
+  addOrder(user: { _id: any; }, order: undefined) {
+    return this.http.post<any>(this.url + `/orders/${user._id}`, order);
+  }
 }

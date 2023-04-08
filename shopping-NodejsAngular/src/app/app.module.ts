@@ -1,26 +1,30 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { MainComponent } from './components/main/main.component';
 import { HomeComponent } from './components/home/home.component';
-import { ProductComponent } from './components/product/product.component';
+import { ProductComponent } from './components/dashboard/product/product.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ContactComponent } from './components/contact/contact.component';
-import { CartComponent } from './components/cart/cart.component';
+import { AuthGuard } from "./guards/auth.guard";
+import { CartComponent } from './components/dashboard/sidebar/cart/cart.component';
 import { AboutComponent } from './components/about/about.component';
-import { SearchComponent } from './components/search/search.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
-import { CategoryComponent } from './components/category/category.component';
-import { TitleComponent } from './components/title/title.component';
-import { RegisterComponent } from './components/register/register.component';
-import { DashboardComponent } from './components-Admin/dashboard/dashboard.component';
-import { SidenavComponent } from './components-Admin/sidenav/sidenav.component';
-import { HeaderComponent } from './components-Admin/header/header.component';
+import { RegisterComponent } from './components/home/auth/register/register.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './components/home/auth/login/login.component';
 import { ToastrModule } from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { NontificationPanelComponent } from './components/home/nontification-panel/nontification-panel.component';
+import { SidebarComponent } from './components/dashboard/sidebar/sidebar.component';
+import { OrderFormComponent } from './components/dashboard/sidebar/cart/order-form/order-form.component';
+import { FilterPipe } from "./pipes/filter.pipe";
+import { HighlightPipe } from "./pipes/highlight.pipe";
+import { ShortenPipe } from "./pipes/shorten.pipe";
+import { TokenInterceptorService } from './services/token-interceptor.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -31,17 +35,17 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     ContactComponent,
     CartComponent,
     AboutComponent,
-    SearchComponent,
     ProductDetailComponent,
-    CategoryComponent,
-    TitleComponent,
     RegisterComponent,
     DashboardComponent,
-    SidenavComponent,
-    HeaderComponent,
     ProductDetailComponent,
-    LoginComponent
-    
+    LoginComponent,
+    NontificationPanelComponent,
+    SidebarComponent,
+    OrderFormComponent,
+    FilterPipe,
+    HighlightPipe,
+    ShortenPipe
   ],
   imports: [
     BrowserModule,
@@ -56,9 +60,15 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
       newestOnTop:false
     })
   ],
-  
-  providers: [],
-  bootstrap: [MainComponent],
+  providers: [
+    AuthService,
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
